@@ -19,6 +19,7 @@ passport.use(
 
             const validate = await bcrypt.compare(password, user.password)
 
+            console.log({ validate, password, user });
             if (!validate) {
                 return cb(boom.unauthorized(), false);
             }

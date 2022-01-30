@@ -11,9 +11,8 @@ class UsersService {
     }
 
     async getUsers({ email }) {
-
-        const query = null;//email && { email: { $ne: email } };
-        const users = await this.mongoDB.getAll(this.collection, query);
+        const query = { email, email: { $ne: email } };
+        const users = await this.mongoDB.find(this.collection, query, { _id: true, name: true, email: true, password: true }, null, 0);
 
         for (let user of users) {
             delete user.password;
@@ -32,20 +31,18 @@ class UsersService {
     }
 
     async getUserbyId({ userId }) {
-        const user = await this.mongoDB.get(this.collection, userId);
+        const user = await this.mongoDB.find(this.collection, { _id: ObjectId(userId) }, { _id: true, name: true, email: true, password: true }, null, 1);
         return user || {};
     }
 
     async createUser({ user }) {
-        const { name, email, password, isAdmin, abilities } = user;
+        const { name, email, password } = user;
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const createUserId = await this.mongoDB.create(this.collection, {
+        const createUserId = await this.mongoDB.insertOne(this.collection, {
             name,
             email,
-            password: hashedPassword,
-            isAdmin,
-            abilities
+            password: hashedPassword
         });
 
         return createUserId;

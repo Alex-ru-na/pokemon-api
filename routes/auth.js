@@ -7,8 +7,6 @@ const config = require('../config');
 
 require('../utils/auth/basic');
 
-
-
 function authApi(app) {
     const router = express.Router();
     app.use('/auth', router);
