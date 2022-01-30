@@ -17,9 +17,8 @@ passport.use(
                 return cb(boom, boom.unauthorized(), false);
             }
 
-            const validate = await bcrypt.compare(password, user.password)
+            const validate = await bcrypt.compare(password, user.password);
 
-            console.log({ validate, password, user });
             if (!validate) {
                 return cb(boom.unauthorized(), false);
             }

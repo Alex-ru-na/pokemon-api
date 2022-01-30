@@ -30,7 +30,7 @@ class UsersService {
 
     }
 
-    async getUserbyId({ userId }) {
+    async getUserById({ userId }) {
         const user = await this.mongoDB.find(this.collection, { _id: ObjectId(userId) }, { _id: true, name: true, email: true, password: true }, null, 1);
         return user || {};
     }

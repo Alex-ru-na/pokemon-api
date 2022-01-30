@@ -1,16 +1,11 @@
 const express = require('express');
-const UserService = require('../service/users');
 const passport = require('passport');
-//import jwt_decode from "jwt-decode";
 const jwt_decode = require('jwt-decode');
 
-const {
-    userIdSchema,
-    createUserSchema
-} = require('../utils/schemas/users');
-
+// local modules
+const { createUserSchema } = require('../utils/schemas/users');
 const validationHandler = require('../utils/middleware/validationHandler');
-
+const UserService = require('../service/users');
 
 //JWT strategy
 require('../utils/auth/jwt');
@@ -22,12 +17,12 @@ function UserApi(app) {
     const userService = new UserService();
 
     router.get('/', passport.authenticate('jwt', { session: false }), async function (req, res, next) {
-        let token = req.headers.authorization.split(' ')[1]
-        let decoded = jwt_decode(token);
-        let email = decoded.email
-
 
         try {
+            let token = req.headers.authorization.split(' ')[1]
+            let decoded = jwt_decode(token);
+            let email = decoded.email
+
             const users = await userService.getUsers({ email });
             res.status(200).json({
                 users

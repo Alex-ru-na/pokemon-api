@@ -2,10 +2,10 @@ version: "3"
 
 services:
   mongo:
-    container_name: graph-prima-mongo
+    container_name: db-mongo
     image: mongo
     ports:
-      - ${MONGO_PORT}:${MONGO_PORT}
+      - 27017:27017
     volumes:
       - ~/.docker-dbs/mongo/graph-prima:/data/db
     command: --quiet

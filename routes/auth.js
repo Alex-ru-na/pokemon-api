@@ -15,14 +15,13 @@ function authApi(app) {
 
         passport.authenticate('basic', function (error, user) {
             try {
-                console.log({ user });
+
                 if (!user) {
-                    //next(boom.unauthorized());
-                    throw new Error("user not found");
+                    next(boom.unauthorized());
+                    //throw new Error("user not found");
                 }
 
                 if (error) {
-                    //throw error;
                     next(error);
                     //next(boom.unauthorized());
                 }
@@ -38,6 +37,7 @@ function authApi(app) {
                         name,
                         email
                     }
+
                     const token = jwt.sign(payload, config.authJwtSecret, {
                         expiresIn: '15m'
                     });
