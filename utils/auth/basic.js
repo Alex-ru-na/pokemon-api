@@ -23,6 +23,8 @@ passport.use(
                 return cb(boom.unauthorized(), false);
             }
 
+            const updated = await userService.updateUserLastConnection({ email })
+
             delete user.password;
 
             return cb(null, user);

@@ -30,6 +30,16 @@ class UsersService {
 
     }
 
+    async updateUserLastConnection({ email }) {
+        try {
+            const userUpdated = await this.mongoDB.updateOne(this.collection, { email }, { lastConnection: new Date() });
+            return userUpdated;
+        } catch (error) {
+            return { error }
+        }
+
+    }
+
     async getUserById({ userId }) {
         const user = await this.mongoDB.find(this.collection, { _id: ObjectId(userId) }, { _id: true, name: true, email: true, password: true }, null, 1);
         return user || {};
