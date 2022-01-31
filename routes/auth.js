@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const boom = require('@hapi/boom');
 
 
 const jwt = require('jsonwebtoken');
@@ -17,13 +18,16 @@ function authApi(app) {
             try {
 
                 if (!user) {
-                    //next(boom.unauthorized());
-                    throw new Error("user not found");
+                    res.status(401).json(boom.unauthorized());
+                    return
+                    //throw new Error("user not found");
                 }
 
                 if (error) {
-                    next(error);
+                    //next(error);
+                    res.status(401).json(boom.unauthorized());
                     //next(boom.unauthorized());
+                    return
                 }
 
                 req.login(user, { session: false }, async function (error) {
