@@ -4,9 +4,9 @@ const axios = require("axios");
 class PokemonService {
   constructor() { }
 
-  async getPokemones() {
+  async getPokemones(offset, limit) {
     try {
-      const request = await axios.get(`${config.pokemonUrl}/pokemon`);
+      const request = await axios.get(`${config.pokemonUrl}/pokemon`, { params: { offset, limit } });
       return request.data;
     } catch (error) {
       /*  if (error.response) {

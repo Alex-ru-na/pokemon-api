@@ -17,8 +17,8 @@ function authApi(app) {
             try {
 
                 if (!user) {
-                    next(boom.unauthorized());
-                    //throw new Error("user not found");
+                    //next(boom.unauthorized());
+                    throw new Error("user not found");
                 }
 
                 if (error) {

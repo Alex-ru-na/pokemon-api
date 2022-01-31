@@ -16,12 +16,14 @@ function PokemonApi(app) {
 
     const pokemonService = new PokemonService();
 
-    router.get('/', passport.authenticate('jwt', { session: false }), async function (req, res, next) {
+    router.get('/:offset/:limit', passport.authenticate('jwt', { session: false }), async function (req, res, next) {
         //let token = req.headers.authorization.split(' ')[1];
         //let decoded = jwt_decode(token);
 
         try {
-            const pokemones = await pokemonService.getPokemones();
+            const { offset, limit } = req.params;
+
+            const pokemones = await pokemonService.getPokemones(offset, limit);
             res.status(200).json({
                 pokemones
             });
