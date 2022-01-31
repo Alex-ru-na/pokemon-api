@@ -41,6 +41,8 @@ function UserApi(app) {
         try {
             const { body: user } = req;
 
+            console.log({ user });
+
             const createdUserId = await userService.createUser({ user });
 
             res.status(201).json({
