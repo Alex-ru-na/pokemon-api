@@ -1,0 +1,22 @@
+{
+    "name": "pokemonapi",
+    "version": 2,
+    "builds": [
+        {
+            "src": "index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/index.js"
+        }
+    ],
+    "env": {
+        "MONGO_CONNECTION_STRING": "@pokemon-db-uri",
+        "DB_NAME": "@pokemon-db-name",
+        "AUTH_JWT_SECRET": "@pokemon-jwt-secret",
+        "POKEMON_URL": "@pokemon-pokemon-url"
+    }
+}
